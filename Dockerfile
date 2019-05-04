@@ -1,4 +1,4 @@
-FROM mono:3.12.1 as builder
+FROM mono:3.12.0 as builder
 
 MAINTAINER Carlos Lozano Diez <thinkcode@adaptive.me>
 
