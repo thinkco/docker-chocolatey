@@ -10,6 +10,7 @@ WORKDIR /usr/local/src
 RUN wget "https://github.com/chocolatey/choco/archive/${CHOCO_VERSION}.tar.gz"
 RUN tar -xzf "${CHOCO_VERSION}.tar.gz"
 RUN mv "choco-${CHOCO_VERSION}" choco
+run cp -Rf /usr/lib/mono/4.5 /usr/lib/mono/4.0
 RUN ls -lart /usr/lib/mono/
 
 WORKDIR /usr/local/src/choco
