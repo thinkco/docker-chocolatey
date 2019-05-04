@@ -1,29 +1,26 @@
-FROM amd64/mono:4
+FROM mono:3.12.1 as builder
 
 MAINTAINER Carlos Lozano Diez <thinkcode@adaptive.me>
 
-ENV CHOCO_VERSION=0.10.13
+ARG CHOCO_VERSION=stable
 
-RUN apt-get update && \
-    apt-get install -y wget && \
-    rm -rf /var/lib/apt/lists/* /tmp/*
+RUN apt-get update && apt-get install -y wget tar gzip
 
-RUN mkdir -p /workdir && \
-    cd /workdir && \
-    wget https://github.com/chocolatey/choco/archive/$CHOCO_VERSION.tar.gz && \
-    tar xvfz $CHOCO_VERSION.tar.gz && \
-    rm $CHOCO_VERSION.tar.gz && \
-    mv choco-$CHOCO_VERSION /usr/local/src/choco && \
-    rm -Rf /workdir
+WORKDIR /usr/local/src
+RUN wget "https://github.com/chocolatey/choco/archive/${CHOCO_VERSION}.tar.gz"
+RUN tar -xzf "${CHOCO_VERSION}.tar.gz"
+RUN mv "choco-${CHOCO_VERSION}" choco
 
 WORKDIR /usr/local/src/choco
-RUN chmod +x build.sh
-RUN chmod +x zip.sh
-RUN ./build.sh
+RUN chmod +x build.sh zip.sh
+RUN ./build.sh -v
 
-WORKDIR /usr/local/bin
-RUN ln -s /usr/local/src/choco/build_output/chocolatey
 
-COPY docker/choco_wrapper /usr/local/bin/choco
+FROM debian
 
-WORKDIR /root
+RUN apt update && apt install -y mono-devel && apt-get clean all
+COPY --from=builder /usr/local/src/choco/build_output/chocolatey /opt/chocolatey
+COPY bin/choco /usr/bin/choco
+
+ENTRYPOINT ["/usr/bin/choco"]
+CMD ["-h"]
