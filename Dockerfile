@@ -1,8 +1,10 @@
-FROM mono:3.12.1
+FROM mono:5.20.1.19
 
 MAINTAINER Carlos Lozano Diez <thinkcode@adaptive.me>
 
-RUN apt-get install wget
+RUN apt-get update && \
+    apt-get install -y wget && \
+    rm -rf /var/lib/apt/lists/* /tmp/*
 
 RUN wget https://github.com/chocolatey/choco/archive/0.10.13.tar.gz && \
     tar xvfz 0.10.13.tar.gz && \
