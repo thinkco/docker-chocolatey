@@ -1,4 +1,4 @@
-FROM mono:4.8
+FROM mono:4
 
 MAINTAINER Carlos Lozano Diez <thinkcode@adaptive.me>
 
