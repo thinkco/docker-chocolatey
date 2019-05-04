@@ -1,6 +1,6 @@
 FROM mono:3.12.1
 
-MAINTAINER Justin Phelps <linuturk@onitato.com>
+MAINTAINER Carlos Lozano Diez <thinkcode@adaptive.me>
 
 RUN wget https://github.com/chocolatey/choco/archive/0.10.13.tar.gz && \
     tar xvfz 0.10.13.tar.gz && \
