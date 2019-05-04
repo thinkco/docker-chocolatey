@@ -4,7 +4,7 @@ MAINTAINER Carlos Lozano Diez <thinkcode@adaptive.me>
 
 ARG CHOCO_VERSION=stable
 
-RUN apt-get update && apt-get install -y wget tar gzip
+RUN apt-get update && apt-get install -y wget tar gzip mono-reference-assemblies-3.5
 
 WORKDIR /usr/local/src
 RUN wget "https://github.com/chocolatey/choco/archive/${CHOCO_VERSION}.tar.gz"
