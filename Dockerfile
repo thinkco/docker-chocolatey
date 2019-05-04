@@ -13,9 +13,8 @@ RUN mkdir -p /workdir && \
     wget https://github.com/chocolatey/choco/archive/$CHOCO_VERSION.tar.gz && \
     tar xvfz $CHOCO_VERSION.tar.gz && \
     rm $CHOCO_VERSION.tar.gz && \
-    ls -lart
-
-COPY . /usr/local/src/choco/
+    mv choco-$CHOCO_VERSION /usr/local/src/choco && \
+    rm -Rf /workdir
 
 WORKDIR /usr/local/src/choco
 RUN chmod +x build.sh
