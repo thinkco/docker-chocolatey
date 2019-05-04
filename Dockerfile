@@ -2,6 +2,8 @@ FROM mono:3.12.1
 
 MAINTAINER Carlos Lozano Diez <thinkcode@adaptive.me>
 
+RUN apt-get install wget
+
 RUN wget https://github.com/chocolatey/choco/archive/0.10.13.tar.gz && \
     tar xvfz 0.10.13.tar.gz && \
     ls -lart
