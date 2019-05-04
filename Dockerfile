@@ -2,12 +2,17 @@ FROM mono:5.20.1.19
 
 MAINTAINER Carlos Lozano Diez <thinkcode@adaptive.me>
 
+ENV CHOCO_VERSION=0.10.13
+
 RUN apt-get update && \
     apt-get install -y wget && \
     rm -rf /var/lib/apt/lists/* /tmp/*
 
-RUN wget https://github.com/chocolatey/choco/archive/0.10.13.tar.gz && \
-    tar xvfz 0.10.13.tar.gz && \
+RUN mkdir -p /workdir && \
+    cd /workdir && \
+    wget https://github.com/chocolatey/choco/archive/$CHOCO_VERSION.tar.gz && \
+    tar xvfz $CHOCO_VERSION.tar.gz && \
+    rm $CHOCO_VERSION.tar.gz && \
     ls -lart
 
 COPY . /usr/local/src/choco/
